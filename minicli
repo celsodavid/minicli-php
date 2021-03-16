@@ -1,0 +1,31 @@
+#!/usr/bin/php
+<?php
+
+if (php_sapi_name() !== 'cli') {
+    exit;
+}
+
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/app/Config/config.php';
+
+use Minicli\App;
+use Minicli\CommandCall;
+
+$app = new App();
+//$app->setSignature("minicli hello name [ user=name ]");
+//
+//$app->registerCommand("help", function (CommandCall $call) use ($app) {
+//    $app->printSignature();
+//    print_r($call->params);
+//});
+
+//$app->runCommand($argv);
+
+$app->setSignature('./minicli mycommand');
+$app->registerCommand('mycommand', function(CommandCall $input) {
+    echo "My Command!";
+
+    var_dump($input);
+});
+
+$app->runCommand($argv);
